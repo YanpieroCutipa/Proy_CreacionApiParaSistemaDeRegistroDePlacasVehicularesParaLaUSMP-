@@ -84,4 +84,17 @@ def read_plate():
         return jsonify({'resultados': resultados})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+# Sirve el archivo index.html de la carpeta client (frontend)
+@app.route('/')
+def serve_index():
+    return send_from_directory('client', 'index.html')
 
+# Sirve archivos estáticos de la carpeta client (JS, CSS, imágenes)
+@app.route('/client/<path:path>')
+def serve_static(path):
+    return send_from_directory('client', path)
+
+# Inicia la aplicación Flask en modo debug
+if __name__ == '__main__':
+    app.run(debug=True)
